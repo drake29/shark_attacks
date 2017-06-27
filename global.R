@@ -10,6 +10,7 @@ library(ggthemes)
 #library(Amelia)
 sharks = fread(file = '~/data/attacks.csv')
 temps = fread(file="~/data/cleanocean_temps.csv")
+colnames(temps)[2] = "Temp_Anomoly"
 #missmap(sharks, main = "Missing values vs observed")
 
 #Insepcting data structure:
@@ -28,6 +29,12 @@ end_year = 2017
 shark.df = sharks %>%
   filter(Year>= start_year & Year < end_year) %>% 
   select(Date,Year,Type,Country,Location,Activity,Sex,Age,`Fatal (Y/N)`)
+
+temp.df = temps %>% 
+  filter(Year>= start_year & Year < end_year)
+
+
+
 
 Country_attacks = shark.df %>% 
   group_by(Country) %>% 
@@ -51,6 +58,7 @@ all_nonfatal = shark.df %>%
   filter(`Fatal (Y/N)` == 'N') %>% 
   summarise('num_Attacks'=n())
 
+temp_attacks = full_join(all_year, temp.df)
 
 map_attacks = shark.df %>% 
   select(Year, Country) %>% 

@@ -49,11 +49,17 @@ shinyUI(dashboardPage(
       
       
       tabItem(tabName= "scatter",
+              h1('A Look at the Number of Attacks:'),
+              h4("Are shark attacks increasing?"),
               selectizeInput(inputId = 'attack_type',
                              label = 'Select the type of Attack',
                              choices),
               fluidRow(plotOutput("scatter_all")
-              )),
+              ),
+              br(),
+              br(),
+              h3("Could warming ocean temperatures contribute to this?"),
+              fluidRow(plotOutput('ocean_temp'))),
       
       tabItem(tabName= 'graph',
               fluidRow(column(width=12),

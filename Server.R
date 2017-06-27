@@ -55,6 +55,10 @@ shinyServer <- function(input, output) {
       ggtitle("Fatal vs. Non-Fatal Attacks")
   })
   
+  output$ocean_temp = renderPlot({
+    ggplot(temp_attacks, aes(x=Year, y=Temp_Anomoly)) + geom_point() + geom_smooth() +
+      ggtitle("Average Global Sea Surface Temperature")
+  })
   
   outlier = reactive({
     switch(input$go,
