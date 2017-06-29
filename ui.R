@@ -7,9 +7,9 @@ shinyUI(dashboardPage(
     sidebarMenu(
       menuItem('Homepage', tabName='Welcome', icon=icon("home")),
       menuItem("Map", tabName = "map", icon = icon("globe")),
-      menuItem("Class", tabName = "scatter", icon = icon("life-buoy")),
-      menuItem("Graph", tabName = "graph", icon = icon("area-chart")),
-      menuItem("Activity", tabName='outliers', icon = icon("anchor")))
+      menuItem("Timeline", tabName = "scatter", icon = icon("life-buoy")),
+      menuItem("Activity Graph", tabName = "graph", icon = icon("area-chart")),
+      menuItem("Fatal Activity", tabName='outliers', icon = icon("anchor")))
   ),
     
   dashboardBody(
@@ -30,23 +30,17 @@ shinyUI(dashboardPage(
               
       tabItem(tabName = "map",
               h2("All Global Shark Attacks reported from 1900-2016", align='center'),
-              h3("by Country", align='center'),
               br(),
-              h5('Check the map or scroll the table for your country of interest', align='center'),
-              br(),
-              fluidRow(
-                column(3,
-                       htmlOutput('map', align='left'),height=300),
-                column(9,
-                       htmlOutput('table', align='right'), height=500)),
+              h5('Check the map or scroll the table for your country of interest', align='left'),
 
-              br(),
-              br(),
-              h3('Top 10 Chart:'),
-              fluidRow(plotOutput('graph'))),
-                       
+              fluidRow(
+                tabBox(width=11, height= 250, 
+                  title = "A Global View",
+                  # The id lets us use input$tabset1 on the server to find the current tab
+                  tabPanel("World Map", htmlOutput('map', width='90%')),
+                  tabPanel("World Table", htmlOutput('table')),
+                  tabPanel('USA Location Map', leafletOutput('usa_attack'))))),
               
-      
       
       tabItem(tabName= "scatter",
               h1('A Look at the Number of Attacks:'),
@@ -62,18 +56,26 @@ shinyUI(dashboardPage(
               fluidRow(plotOutput('ocean_temp'))),
       
       tabItem(tabName= 'graph',
+              h2("Activity When Attacked:", align='left'),
               fluidRow(column(width=12),
                        column(width=12),
                        (plotOutput('activity'))),
               br(),
               br(),
-              fluidRow((plotOutput('Type_attack')))),
+              fluidRow(plotOutput('type_attack'))),
+              
+              
       
               
       tabItem(tabName= 'outliers',
+              h1('The Most Dangerous Activities'),
               fluidRow((plotOutput('Fatal_Activity'))),
+              br(),
+              box(
+                title = "Some less than ideal ways to go.."
+              
               (textOutput("text1")),
-              actionButton("go", label='Outliers')
+              actionButton("go", label='Outliers'))
               
 
     )

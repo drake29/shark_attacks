@@ -6,19 +6,22 @@ library(googleVis)
 library(shiny)
 library(shinydashboard)
 library(ggthemes)
+library(ggmap)
+library(leaflet)
 
 #library(Amelia)
 sharks = fread(file = '~/data/attacks.csv')
 temps = fread(file="~/data/cleanocean_temps.csv")
 colnames(temps)[2] = "Temp_Anomoly"
+geo_location = read.csv('~/geo_location.csv')
 #missmap(sharks, main = "Missing values vs observed")
 
 #Insepcting data structure:
-dim(sharks)
-sapply(sharks, function(x) length(unique(x)))
+#dim(sharks)
+#sapply(sharks, function(x) length(unique(x)))
 
 #Inspecting Missingness:
-sapply(sharks,function(x) sum(is.na(x)))
+#sapply(sharks,function(x) sum(is.na(x)))
 #missmap(sharks, main = "Missing values vs observed")
 
 
@@ -33,6 +36,10 @@ shark.df = sharks %>%
 temp.df = temps %>% 
   filter(Year>= start_year & Year < end_year)
 
+
+leaflet(geo_locationcsv) %>% 
+  addTiles() %>% 
+  addCircles(lng = ~lon, lat= ~lat, weight=1, popup= ~Location)
 
 
 
@@ -110,7 +117,7 @@ Country_attacks[1,1]="UNITED STATES"
    group_by(Activity) %>% 
    summarise('Most_fatal'=n()) %>% 
    arrange(desc(Most_fatal)) %>% 
-   top_n(Most_fatal, n=15)
+   top_n(Most_fatal, n=8)
  fatal_act[2,1] = 'Activity Unknown'
  
  random_fatal = shark.df %>% 

@@ -35,9 +35,19 @@ shinyServer <- function(input, output) {
   })
   
   output$Fatal_Activity = renderPlot({
-    ggplot(fatal_act, aes(x=Activity, y= Most_fatal, fill=Activity)) + geom_col(aes(color=Activity)) + ggtitle('Fatal Attacks by Type of Activity')
+   g= ggplot(fatal_act, aes(x=Activity, y= Most_fatal, fill=Activity)) + geom_col()
+   g + coord_flip() + ggtitle('Fatal Attacks by Type of Activity')
+   g + theme_economist() + scale_fill_economist()
+   
+   
   })
 
+  output$usa_attack = renderLeaflet({
+    leaflet(geo_location) %>% 
+      setView(-100, 37.8, 2) %>% 
+      addTiles() %>% 
+      addCircles(lng = ~lon, lat= ~lat, weight=1, popup= ~Location)
+  })
   
   
   scatter_input = reactive({
