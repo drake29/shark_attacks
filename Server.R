@@ -84,7 +84,7 @@ shinyServer <- function(input, output) {
            '10' = 'Thanks for Visiting!')
   })
   
-  output$text1 = renderPrint({
+  output$text = renderPrint({
     outlier()
     
   

@@ -33,10 +33,10 @@ shinyUI(dashboardPage(
               br(),
               h5('Check the map or scroll the table for your country of interest', align='left'),
 
-              fluidRow(
+              fluidRow(background='light-blue',
                 tabBox(width=11, height= 250, 
                   title = "A Global View",
-                  # The id lets us use input$tabset1 on the server to find the current tab
+                  
                   tabPanel("World Map", htmlOutput('map', width='90%')),
                   tabPanel("World Table", htmlOutput('table')),
                   tabPanel('USA Location Map', leafletOutput('usa_attack'))))),
@@ -75,13 +75,16 @@ shinyUI(dashboardPage(
               br(),
               fluidRow(
                 box(width=11,
-                    background = 'blue',
-                    (imageOutput('img')),
+                    h1("Death by..."),
+                     actionButton('click', label='next'),
+                    h2(textOutput('text')),
+                    background = 'navy',
                     br(),
-                    br(),
-                    (textOutput('text1')),
-                    actionButton('click', label='next'))))
-      ))))
+                    (imageOutput('img'))))
+                
+                )
+              )
+      )))
 
 
 
