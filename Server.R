@@ -71,21 +71,36 @@ shinyServer <- function(input, output) {
   })
   
   outlier = reactive({
-    switch(input$go,
+    switch(input$click,
            '1' = "Attempting to kill a shark with explosives",
            '2'= "Washing horses",
            '3' = 'Suicide',
            '4'= 'Defecating in water beneath the docks',
            '5'= 'Surfing on air mattress',
-           '6'= 'Bathing with sister',
-           '7' = 'Dynamite fishing')
+           '6'= 'Dynamite fishing',
+           '7' = 'Escaping From Alcatraz',
+           '8' = 'Bathing with sister',
+           '9' = 'Sleeping in Anchored Boat',
+           '10' = 'Thanks for Visiting!')
   })
   
   output$text1 = renderPrint({
     outlier()
     
+  
+    
   })
   
+    
+  output$img = renderImage({
+    filename= normalizePath(file.path('./images',
+                                      paste('image', input$click, '.jpg', sep='')))
+    list(src = filename,
+         width= 615,
+         height=350)
+    
+    
+  }, deleteFile = FALSE)
 
   
 }

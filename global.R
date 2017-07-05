@@ -13,7 +13,7 @@ library(leaflet)
 sharks = fread(file = '~/data/attacks.csv')
 temps = fread(file="~/data/cleanocean_temps.csv")
 colnames(temps)[2] = "Temp_Anomoly"
-geo_location = read.csv('~/geo_location.csv')
+geo_location = read.csv('~/data/geo_location.csv')
 #missmap(sharks, main = "Missing values vs observed")
 
 #Insepcting data structure:

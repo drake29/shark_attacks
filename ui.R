@@ -56,34 +56,32 @@ shinyUI(dashboardPage(
               fluidRow(plotOutput('ocean_temp'))),
       
       tabItem(tabName= 'graph',
-              h2("Activity When Attacked:", align='left'),
+              h3("The Type of Activity at the Time of Attack:", align='left'),
               fluidRow(column(width=12),
                        column(width=12),
                        (plotOutput('activity'))),
               br(),
               br(),
-              fluidRow(plotOutput('type_attack'))),
+              br(),
+              h4("The Nature of Incident:"),
+              fluidRow(plotOutput('Type_attack'))),
               
               
       
               
       tabItem(tabName= 'outliers',
               h1('The Most Dangerous Activities'),
-              fluidRow((plotOutput('Fatal_Activity'))),
+              fluidRow(plotOutput('Fatal_Activity')),
               br(),
-              box(
-                title = "Some less than ideal ways to go.."
-              
-              (textOutput("text1")),
-              actionButton("go", label='Outliers'))
-              
-
-    )
-            
-          
-                     )
-))
-)
+              fluidRow(
+                box(width=11,
+                    background = 'blue',
+                    (imageOutput('img')),
+                    br(),
+                    br(),
+                    (textOutput('text1')),
+                    actionButton('click', label='next'))))
+      ))))
 
 
 
