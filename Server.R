@@ -21,6 +21,21 @@ shinyServer <- function(input, output) {
     
   })
   
+  data = sharks 
+  
+  output$downloadData = downloadHandler(
+       filename = function() {
+         paste('data-', Sys.Date(), '.csv', sep='')
+       },
+       content = function(con) {
+         write.csv(data, con)
+       }
+     )
+  url = a("EPA:Sea Surface Temperatures", href="https://www.epa.gov/climate-indicators/climate-change-indicators-sea-surface-temperature")
+  output$epa <- renderUI({
+    tagList("URL link:", url)
+  })
+  
   output$activity = renderPlot({
     ggplot(act, aes(Activity, Attacked_activity)) + geom_col(aes(fill=Activity)) + ggtitle("Attacks by Activity") +
       theme_stata() + scale_fill_stata()

@@ -8,12 +8,14 @@ library(shinydashboard)
 library(ggthemes)
 library(ggmap)
 library(leaflet)
+library(rsconnect)
 
+getwd
 #library(Amelia)
-sharks = fread(file = '~/data/attacks.csv')
-temps = fread(file="~/data/cleanocean_temps.csv")
+sharks = fread(file = './attacks.csv')
+temps = fread(file="./cleanocean_temps.csv")
 colnames(temps)[2] = "Temp_Anomoly"
-geo_location = read.csv('~/data/geo_location.csv')
+geo_location = read.csv('./geo_location1.csv')
 #missmap(sharks, main = "Missing values vs observed")
 
 #Insepcting data structure:
@@ -37,7 +39,7 @@ temp.df = temps %>%
   filter(Year>= start_year & Year < end_year)
 
 
-leaflet(geo_locationcsv) %>% 
+leaflet(geo_location) %>% 
   addTiles() %>% 
   addCircles(lng = ~lon, lat= ~lat, weight=1, popup= ~Location)
 
@@ -149,6 +151,12 @@ vis = gvisGeoChart(Country_attacks, locationvar="Country",
              options=list(projection="kavrayskiy-vii",
                           width=500,
                           height=500))
+
+
+
+#rsconnect::setAccountInfo(name='drake29', token='6AC01B15246C88A688F4B840261FCFD6', secret='kLYt9aOZPuxcYHITKSPqeF08KtT8oxX2djhVDkXe')
+
+#rsconnect::deployApp('~/projects/shark_attacks')
  
 
   
